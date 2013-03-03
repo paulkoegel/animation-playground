@@ -111,11 +111,12 @@ window.onload = (event) ->
     circle bobaFettElement, alpha,
       x: 200
       y: 200
-  probeElement = document.getElementById('probe')
-  if probeElement?
-    circle probeElement, alpha,
-      x: 200
-      y: 200
+  probeElements = document.getElementsByClassName('probe')
+  if probeElements.length
+    for probeElement in probeElements
+      circle probeElement, alpha,
+        x: 200
+        y: 200
 
   bobaFettCSSElement = document.getElementById('boba_fett_css_image')
   if bobaFettCSSElement?
