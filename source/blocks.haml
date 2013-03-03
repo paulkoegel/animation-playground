@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title Animation Playground
+    %meta{charset: 'utf-8'}
+
+    %link{rel: 'shortcut icon', href: 'images/favicon.ico'}
+    %link{rel: 'stylesheet', type: 'text/css', href: 'stylesheets/application.css'}
+    %link{rel: 'stylesheet', type: 'text/css', href: 'stylesheets/game.css'}
+    %script{src: 'javascripts/application.js', type: 'text/javascript'}
+
+  %body
+    %h1 Star Wars
+    - i = 0
+    - while i < 100
+      %div{style: 'color: green'}
+        i
+      - i++

@@ -31,9 +31,12 @@ module.exports = (grunt) ->
         ]
 
     haml:
-      index:
-        src: 'source/index.haml'
-        dest: 'dist/index.html'
+      compile:
+        files:
+          'dist/index.html': 'source/index.haml'
+          'dist/blocks.html' : 'source/blocks.haml'
+        options:
+          language: 'coffee'
 
     coffee:
       glob_to_multiple:
