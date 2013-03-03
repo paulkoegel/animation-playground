@@ -23,7 +23,18 @@
       clearTimeout id
 )()
 
+thisLoop = null
+lastLoop = null
+
 window.onload = (event) ->
+
+  fpsCounter = document.getElementById('fps-counter')
+  minFPSCounter = document.getElementById('min-fps-counter')
+  currentFPSCounter = document.getElementById('current-fps-counter')
+  maxFPSCounter = document.getElementById('max-fps-counter')
+  maxFPS = 0
+  minFPS = 9999
+
   circle = (element, angle, center) ->
     (drawCircle = ->
       radius = 100 + (20 * Math.sin((angle * 11) * radDegFactor))
@@ -38,6 +49,18 @@ window.onload = (event) ->
       element.style.WebkitTransform = 'rotate(' + (radians + Math.PI / 2) + 'rad)'
 
       angle++
+
+      thisLoop = new Date()
+      fps = Math.floor(1000 / (thisLoop - lastLoop))
+      console.log(fps)
+      if fps < 250 and fps > maxFPS
+        maxFPS = fps
+        maxFPSCounter.textContent = "#{maxFPS}"
+      if fps > 0 and fps < minFPS
+        minFPS = fps
+        minFPSCounter.textContent = "#{minFPS}"
+      currentFPSCounter.textContent = "#{fps}"
+      lastLoop = thisLoop
       # so far this is working fine with drawCircle; had problems before, alternatives are: arguments.callee and
       # `callback = (=> drawCircle())` (cf. http://stackoverflow.com/a/11380079)
       requestAnimationFrame drawCircle
