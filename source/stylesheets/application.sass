@@ -104,3 +104,11 @@ body
   height: 1px
   background: green
   position: absolute
+
+.js-bouncing-box
+  width: 20px
+  height: 20px
+
+@for $i from 0 through 99
+  .background-colour-#{$i}
+    background-color: getRandomColour()

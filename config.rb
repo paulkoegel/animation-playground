@@ -21,3 +21,9 @@ images_dir = "source/images"
 preferred_syntax = :sass
 # and then run:
 # sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
+#
+module Sass::Script::Functions
+  def getRandomColour()
+    Sass::Script::String.new("#%06x" % (rand * 0xffffff))
+  end
+end
