@@ -2,12 +2,12 @@
 # https://gist.github.com/paulirish/1579671/raw/7f515ade253afbc860dac1f84e21998d54359d79/rAF.js
 (->
   lastTime = 0
-  vendors = ["ms", "moz", "webkit", "o"]
+  vendors = ['ms', 'moz', 'webkit', 'o']
   x = 0
 
   while x < vendors.length and not window.requestAnimationFrame
-    window.requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"]
-    window.cancelAnimationFrame = window[vendors[x] + "CancelAnimationFrame"] or window[vendors[x] + "CancelRequestAnimationFrame"]
+    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame']
+    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] or window[vendors[x] + 'CancelRequestAnimationFrame']
     ++x
   unless window.requestAnimationFrame
     window.requestAnimationFrame = (callback, element) ->
@@ -34,8 +34,8 @@ window.onload = (event) ->
       y = Math.sin(radians) * radius + offsetY
       element.style.left = "#{x}px" # can't use plain numbers!
       element.style.top = "#{y}px"
-      element.style.MozTransform = "rotate(" + (radians + Math.PI / 2) + "rad)"
-      element.style.WebkitTransform = "rotate(" + (radians + Math.PI / 2) + "rad)"
+      element.style.MozTransform = 'rotate(' + (radians + Math.PI / 2) + 'rad)'
+      element.style.WebkitTransform = 'rotate(' + (radians + Math.PI / 2) + 'rad)'
 
       angle++
       # so far this is working fine with drawCircle; had problems before, alternatives are: arguments.callee and
@@ -78,12 +78,12 @@ window.onload = (event) ->
   #     requestAnimationFrame drawATST2
   #   )()
 
-  #moveATST document.getElementById("at_st")
-  #moveATST2 document.getElementById("at_st_2")
+  #moveATST document.getElementById('at_st')
+  #moveATST2 document.getElementById('at_st_2')
   alpha = 0
   radDegFactor = Math.PI / 180.0 # factor required to convert radians to degrees
-  bobaFettElement = document.getElementById("boba_fett")
-  #bobaFettCSSElement = document.getElementById("boba_fett_css_image")
+  bobaFettElement = document.getElementById('boba_fett')
+  #bobaFettCSSElement = document.getElementById('boba_fett_css_image')
   circle bobaFettElement, alpha,
     x: 200
     y: 200
