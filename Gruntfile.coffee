@@ -18,7 +18,9 @@ module.exports = (grunt) ->
           { src: [
             './dist/images/**',
             './dist/javascripts/**',
-            './dist/index.html'
+            './dist/index.html',
+            './dist/index_css.html',
+            './dist/blocks.html'
             ]
             , filter: 'isFile' # this line MUST start with a comma; reason for this option: https://github.com/gruntjs/grunt-contrib-clean/issues/15#issuecomment-14301612
           }
@@ -34,6 +36,7 @@ module.exports = (grunt) ->
       compile:
         files:
           'dist/index.html': 'source/index.haml'
+          'dist/index_css.html': 'source/index_css.haml'
           'dist/blocks.html' : 'source/blocks.haml'
         options:
           language: 'coffee'

@@ -1,5 +1,11 @@
+@import 'compass/css3/box-shadow'
+@import 'compass/css3/images'
+
+
 body
-  background-image: url('../images/sprites/space.png')
+  +background-image(radial-gradient(center center, white, red))
+  //background-image: url('../images/sprites/space.png')
+  //+background-image(radial-gradient(45px 45px, aqua 10px, #1e90ff 30px))
 
 #fps-counter
   background: white
@@ -33,7 +39,7 @@ body
   z-index: 5
   bottom: 200px
 
-#boba_fett
+#boba_fett, #probe
   position: absolute
   left: 50%
   top: 50%
@@ -42,8 +48,19 @@ body
   background-image: url('../images/sprites/boba_fett_02.png')
   width: 28px
   height: 69px
+  //+box-shadow(red 0px 0px 20px)
+  -webkit-filter: drop-shadow(0 1px 20px rgba(0,255,0,1.0))
+  -moz-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+  -ms-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+  -o-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+  filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
 
-#boba_fett_css
+#probe
+  background-image: url('../images/sprites/probe_large.png')
+  width: 204px
+  height: 378px
+
+#boba_fett_css, #probe_css
   position: absolute
   left: 50%
   top: 50%
@@ -73,6 +90,16 @@ body
     position: relative
     right: -77px
     top: 35px
+    -webkit-filter: drop-shadow(0 1px 20px rgba(0,255,0,1.0))
+    -moz-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+    -ms-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+    -o-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+    filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+
+#probe_css
+  width: 204px
+  height: 378px
+
 
 @-webkit-keyframes orbit
   from
@@ -123,3 +150,6 @@ body
 @for $i from 0 through 99
   .background-colour-#{$i}
     background-color: getRandomColour()
+
+.matrix
+  transform: matrix(1, 0, 0, 1, 150, 150)

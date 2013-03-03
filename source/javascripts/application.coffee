@@ -28,12 +28,12 @@ lastLoop = null
 
 window.onload = (event) ->
 
-  fpsCounter = document.getElementById('fps-counter')
-  minFPSCounter = document.getElementById('min-fps-counter')
-  currentFPSCounter = document.getElementById('current-fps-counter')
-  maxFPSCounter = document.getElementById('max-fps-counter')
-  maxFPS = 0
-  minFPS = 9999
+  #fpsCounter = document.getElementById('fps-counter')
+  #minFPSCounter = document.getElementById('min-fps-counter')
+  #currentFPSCounter = document.getElementById('current-fps-counter')
+  #maxFPSCounter = document.getElementById('max-fps-counter')
+  #maxFPS = 0
+  #minFPS = 9999
 
   circle = (element, angle, center) ->
     (drawCircle = ->
@@ -50,34 +50,34 @@ window.onload = (event) ->
 
       angle++
 
-      thisLoop = new Date()
-      fps = Math.floor(1000 / (thisLoop - lastLoop))
-      console.log(fps)
-      if fps < 250 and fps > maxFPS
-        maxFPS = fps
-        maxFPSCounter.textContent = "#{maxFPS}"
-      if fps > 0 and fps < minFPS
-        minFPS = fps
-        minFPSCounter.textContent = "#{minFPS}"
-      currentFPSCounter.textContent = "#{fps}"
-      lastLoop = thisLoop
+      #thisLoop = new Date()
+      #fps = Math.floor(1000 / (thisLoop - lastLoop))
+      #console.log(fps)
+      #if fps < 250 and fps > maxFPS
+      #  maxFPS = fps
+      #  maxFPSCounter.textContent = "#{maxFPS}"
+      #if fps > 0 and fps < minFPS
+      #  minFPS = fps
+      #  minFPSCounter.textContent = "#{minFPS}"
+      #currentFPSCounter.textContent = "#{fps}"
+      #lastLoop = thisLoop
       # so far this is working fine with drawCircle; had problems before, alternatives are: arguments.callee and
       # `callback = (=> drawCircle())` (cf. http://stackoverflow.com/a/11380079)
       requestAnimationFrame drawCircle
 
     )()
-  # cssCircle = (element, angle, center) ->
-  #   (drawCSSCircle = ->
-  #     radius = 200 + (20 * Math.sin((angle * 11) * radDegFactor))
-  #     offsetX = center.x
-  #     offsetY = center.y
-  #     radians = angle * radDegFactor
-  #     x = Math.cos(radians) * radius + offsetX
-  #     y = Math.sin(radians) * radius + offsetY
-  #     element.style.right = -100 + 20 * Math.sin((angle * 11) * radDegFactor)
-  #     angle++
-  #     requestAnimationFrame drawCSSCircle
-  #   )()
+  cssCircle = (element, angle, center) ->
+    (drawCSSCircle = ->
+      radius = 200 + (20 * Math.sin((angle * 11) * radDegFactor))
+      offsetX = center.x
+      offsetY = center.y
+      radians = angle * radDegFactor
+      x = Math.cos(radians) * radius + offsetX
+      y = Math.sin(radians) * radius + offsetY
+      element.style.right = "#{-100 + 20 * Math.sin((angle * 11) * radDegFactor)}px"
+      angle++
+      requestAnimationFrame drawCSSCircle
+    )()
   counter = 0
   daOuterWidth = window.outerWidth
 
@@ -101,16 +101,29 @@ window.onload = (event) ->
       requestAnimationFrame drawATST2
     )()
 
-  moveATST document.getElementById('at_st')
-  moveATST2 document.getElementById('at_st_2')
+  # moveATST document.getElementById('at_st')
+  # moveATST2 document.getElementById('at_st_2')
   alpha = 0
   radDegFactor = Math.PI / 180.0 # factor required to convert radians to degrees
-  bobaFettElement = document.getElementById('boba_fett')
-  #bobaFettCSSElement = document.getElementById('boba_fett_css_image')
-  circle bobaFettElement, alpha,
-    x: 200
-    y: 200
 
-  # cssCircle bobaFettCSSElement, alpha,
-  #   x: 500
-  #   y: 200
+  bobaFettElement = document.getElementById('boba_fett')
+  if bobaFettElement?
+    circle bobaFettElement, alpha,
+      x: 200
+      y: 200
+  probeElement = document.getElementById('probe')
+  if probeElement?
+    circle probeElement, alpha,
+      x: 200
+      y: 200
+
+  bobaFettCSSElement = document.getElementById('boba_fett_css_image')
+  if bobaFettCSSElement?
+    cssCircle bobaFettCSSElement, alpha,
+      x: 500
+      y: 200
+  probeCSSElement = document.getElementById('probe_css_image')
+  if probeCSSElement?
+    cssCircle probeCSSElement, alpha,
+      x: 500
+      y: 200
