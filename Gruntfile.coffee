@@ -5,13 +5,29 @@ filesToWatch = [
 
 module.exports = (grunt) ->
   grunt.initConfig
-    clean: ["./dist"]
+    connect:
+      server:
+        options:
+          base: './dist'
+          port: 3000
+          keepalive: true # without this the server process would close immediately after a successful start; you can then not chain any task behind connect, however
+
+    clean:
+      all:
+        files:[
+          { src: [
+            './dist/images/**',
+            './dist/javascripts/**',
+            './dist/index.html'
+            ]
+            , filter: 'isFile' # this line MUST start with a comma; reason for this option: https://github.com/gruntjs/grunt-contrib-clean/issues/15#issuecomment-14301612
+          }
+        ]
 
     copy:
       main:
         files: [
           { expand: true, cwd: 'source/', src: ['images/**'], dest: 'dist/' }
-          { expand: true, cwd: 'source/', src: ['stylesheets/**'], dest: 'dist/' }
         ]
 
     haml:
@@ -37,5 +53,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-copy'
+  grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.registerTask 'build:dev', ['clean', 'copy', 'haml', 'coffee']
-  grunt.registerTask 'default', 'watch:dev'
+  grunt.registerTask 'default', ['watch:dev']
+  grunt.registerTask 'server', ['connect']

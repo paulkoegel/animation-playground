@@ -1,1 +1,38 @@
-grunt build:dev --verbose
+Installation
+------------
+### Grunt
++ install node.js
++ install npm
++ `npm install -g grunt-cli`
++ `npm install`
+
+### Compass
++ install Ruby 1.9.3 with RVM or rbenv
++ bundle install
+
+Development Setup
+-----------------
+We're using two watchers since Grunt's a node process and when it calls native SASS/Compass, it has to start a Ruby environment every time a file changes, which takes a while and makes the whole watch process tediously slow. There is a SASS port to Javascript but none for Compass so far. An alternative might be to have Grunt load native SASS/Compass via [Zeus](https://github.com/burke/zeus), which preloads Ruby environments.
+The grunt server process could also be chained before `watch` in the Gruntfile (without keepalive set to true in connect's config then). I prefer two processes.
+
+### TL;DR
+Start the following three processes from Animation Playground's root folder:
+`grunt`
+`grunt server`
+`compass watch`
+
+### Grunt Watcher
+Monitors images, Javascript and HAML files for changes and compiles or copies them from `/source` to `/dist`.
+Configuration is in `Gruntfile.coffee`.
+Start with: `grunt`
+
+To manually trigger a build:
+`grunt build:dev --verbose`
+
+### Grunt Server
+`grunt server`
+
+### Compass Watcher
+Monitors only .sass files inside of `/source/stylesheets`, compiles them to .css and puts them in `/dist/stylesheets`.
+Configuration is in `config.rb`.
+Start with: `compass watch`

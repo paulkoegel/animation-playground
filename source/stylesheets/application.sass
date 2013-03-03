@@ -1,0 +1,106 @@
+body
+  background-image: url('../images/sprites/space.png')
+
+#at_st
+  background-position: bottom center
+  background-repeat: no-repeat
+  width: 133px
+  height: 172px
+  position: absolute
+  right: 0
+  bottom: 0
+  z-index: 5
+
+#at_st_2
+  background-position: bottom center
+  background-repeat: no-repeat
+  width: 133px
+  height: 172px
+  position: absolute
+  right: 0
+  bottom: 0
+  z-index: 5
+  bottom: 200px
+
+#boba_fett
+  position: absolute
+  left: 50%
+  top: 50%
+  margin-top: -35px
+  margin-left: -14px
+  background-image: url('../images/sprites/boba_fett_02.png')
+  width: 28px
+  height: 69px
+
+#boba_fett_css
+  position: absolute
+  left: 50%
+  top: 50%
+  margin-top: -35px
+  margin-left: -14px
+  background-image: url('../images/sprites/boba_fett_02.png')
+  width: 28px
+  height: 69px
+  top: 200px
+  left: 600px
+  margin-top: -50px
+  margin-left: -50px
+  background-image: none
+  width: 100px
+  height: 100px
+  background-repeat: no-repeat
+  // background-color: rgba(255, 0, 0, 0.6);
+  -webkit-animation-iteration-count: infinite
+  -webkit-animation-timing-function: linear
+  -webkit-animation-name: orbit
+  -webkit-animation-duration: 11.5s
+  -moz-animation-iteration-count: infinite
+  -moz-animation-timing-function: linear
+  -moz-animation-name: orbit
+  -moz-animation-duration: 11.5s
+  img
+    position: relative
+    right: -77px
+    top: 35px
+
+@-webkit-keyframes orbit
+  from
+    -webkit-transform: rotate(0deg)
+  to
+    -webkit-transform: rotate(360deg)
+@-moz-keyframes orbit
+  from
+    -moz-transform: rotate(0deg)
+  to
+    -moz-transform: rotate(360deg)
+
+#death_star
+  width: 66px
+  height: 66px
+  position: absolute
+  left: 200px
+  top: 200px
+  margin-left: -33px
+  margin-top: -33px
+  background-image: url('../images/sprites/death_star_small.png')
+  background-position: center center
+  background-repeat: no-repeat
+
+#death_star_css
+  width: 66px
+  height: 66px
+  position: absolute
+  left: 200px
+  top: 200px
+  margin-left: -33px
+  margin-top: -33px
+  background-image: url('../images/sprites/death_star_small.png')
+  background-position: center center
+  background-repeat: no-repeat
+  left: 600px
+
+#pixel
+  width: 1px
+  height: 1px
+  background: green
+  position: absolute

@@ -56,30 +56,30 @@ window.onload = (event) ->
   #     requestAnimationFrame drawCSSCircle
   #   )()
   counter = 0
-  # daOuterWidth = window.outerWidth
-  # fadeOff = 12 # slow down AT-ST animation so it doesn't switch background @ 60fps
-  # moveATST = (element) ->
-  #   (drawATST = ->
-  #     if counter % fadeOff is 0
-  #       
-  #       #atStElement.style.background = 'none';
-  #       #atStElement.style.backgroundRepeat = 'no-repeat';
-  #       element.style.backgroundImage = "url('images/sprites/at_st_" + ((counter / fadeOff) % 6) + ".png')"
-  #       element.style.right = Math.round((counter * 1.3) % daOuterWidth)
-  #     counter++
-  #     requestAnimationFrame drawATST
-  #   )()
+  daOuterWidth = window.outerWidth
 
-  # moveATST2 = (element) ->
-  #   (drawATST2 = ->
-  #     if counter % fadeOff is 0
-  #       element.src = "images/sprites/at_st_" + ((counter / fadeOff) % 6) + ".png"
-  #       element.style.right = Math.round((counter * 1.3) % daOuterWidth)
-  #     requestAnimationFrame drawATST2
-  #   )()
+  fadeOff = 12 # slow down AT-ST animation so it doesn't switch background @ 60fps
+  moveATST = (element) ->
+    (drawATST = ->
+      if counter % fadeOff is 0
+        #atStElement.style.background = 'none';
+        #atStElement.style.backgroundRepeat = 'no-repeat';
+        element.style.backgroundImage = "url('images/sprites/at_st_" + ((counter / fadeOff) % 6) + ".png')"
+        element.style.right = "#{Math.round((counter * 1.3) % daOuterWidth)}px"
+      counter++
+      requestAnimationFrame drawATST
+    )()
 
-  #moveATST document.getElementById('at_st')
-  #moveATST2 document.getElementById('at_st_2')
+  moveATST2 = (element) ->
+    (drawATST2 = ->
+      if counter % fadeOff is 0
+        element.src = 'images/sprites/at_st_' + ((counter / fadeOff) % 6) + '.png'
+        element.style.right = "#{Math.round((counter * 1.3) % daOuterWidth)}px"
+      requestAnimationFrame drawATST2
+    )()
+
+  moveATST document.getElementById('at_st')
+  moveATST2 document.getElementById('at_st_2')
   alpha = 0
   radDegFactor = Math.PI / 180.0 # factor required to convert radians to degrees
   bobaFettElement = document.getElementById('boba_fett')

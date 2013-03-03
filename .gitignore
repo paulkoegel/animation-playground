@@ -2,3 +2,4 @@ source/images/sprites
 node_modules
 dist
 .sass-cache
+source/images/favicon.*
