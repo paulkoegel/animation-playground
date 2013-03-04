@@ -33,34 +33,34 @@ App.DEG2RAD = Math.PI / 180.0 # factor required to convert radians to degrees
 window.onload = (event) ->
   daAngle = 0
   App.probe = Vector.create [100.0, 100.0]
-  App.rotationMatrix = 
-    Matrix.create [
-                    [Math.cos(daAngle * App.DEG2RAD), -Math.sin(daAngle * App.DEG2RAD)],
-                    [Math.sin(daAngle * App.DEG2RAD), Math.cos(daAngle * App.DEG2RAD)]
-                  ]
-  rotationMatrixFor = (angle) ->
-    console.log 'raw angle:', angle
-    angle = angle * App.DEG2RAD
-    console.log App.DEG2RAD, angle
-    console.log angle, Math.sin(angle)
-    Matrix.create [
-                    [Math.cos(angle), -Math.sin(angle)],
-                    [Math.sin(angle), Math.cos(angle)]
-                  ]
+  # App.rotationMatrix =
+  #   Matrix.create [
+  #                   [Math.cos(daAngle * App.DEG2RAD), -Math.sin(daAngle * App.DEG2RAD)],
+  #                   [Math.sin(daAngle * App.DEG2RAD), Math.cos(daAngle * App.DEG2RAD)]
+  #                 ]
+  # App.rotationMatrixFor = (angle) ->
+  #   angle = angle * App.DEG2RAD
+  #   Matrix.create [
+  #                   [Math.cos(angle), -Math.sin(angle)],
+  #                   [Math.sin(angle), Math.cos(angle)]
+  #                 ]
 
-  App.result = App.rotationMatrix.multiply(App.probe)
-  console.log App.result
-  console.log App.probe
+  # App.result = App.rotationMatrix.multiply(App.probe)
+
+  App.rotationMatrix =
+    Matrix.create [
+                    [Math.cos(App.DEG2RAD), -Math.sin(App.DEG2RAD)],
+                    [Math.sin(App.DEG2RAD), Math.cos(App.DEG2RAD)]
+                  ]
+  console.log App.rotationMatrix
+
   circulate = (element) ->
     (drawCircle = ->
-      App.probe = rotationMatrixFor(daAngle % 360).multiply(App.probe)
+      App.probe = App.rotationMatrix.multiply(App.probe) # we're constantly moving the element by 1 degree
       element.style.left = "#{Math.round(App.probe.e(1))}px"
       element.style.bottom = "#{Math.round(App.probe.e(2))}px"
-      daAngle++
-      #console.log daAngle, App.probe.e(1), App.probe.e(2)
-      setTimeout ->
-        requestAnimationFrame(drawCircle)
-      , 100
+      daAngle = daAngle + 1
+      requestAnimationFrame(drawCircle)
     )()
   probeElement = document.getElementById('probe_css')
   circulate(probeElement)
