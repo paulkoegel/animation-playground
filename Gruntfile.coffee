@@ -29,7 +29,8 @@ module.exports = (grunt) ->
     copy:
       main:
         files: [
-          { expand: true, cwd: 'source/', src: ['images/**'], dest: 'dist/' }
+          { expand: true, cwd: 'source/', src: ['images/**'], dest: 'dist/' },
+          { expand: true, cwd: 'source/vendor/', src: ['javascripts/*'], dest: 'dist' }
         ]
 
     haml:
@@ -45,7 +46,9 @@ module.exports = (grunt) ->
       glob_to_multiple:
         expand: true
         cwd: 'source/'
-        src: ['javascripts/*.coffee']
+        src: [
+          'javascripts/*.coffee'
+        ]
         dest: 'dist/'
         ext: '.js'
 
