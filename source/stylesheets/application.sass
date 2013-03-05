@@ -3,12 +3,15 @@
 
 body
   +background-image(radial-gradient(center center, white, red))
+  //cf. http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/css3-animations-the-hiccups-and-bugs-youll-want-to-avoid
+  -webkit-transform: translateZ(0)
+
   //background-image: url('../images/sprites/space.png')
   //+background-image(radial-gradient(45px 45px, aqua 10px, #1e90ff 30px))
 
 #reference
   position: fixed
-  top: 50%
+  top: 600%
   left: 50%
   width: 100px
   height: 100px
@@ -105,11 +108,19 @@ body
     -o-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
     filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
 
-#probe_css
+.probe_css
   width: 204px
   height: 378px
   position: absolute
-
+  transform: translate(100px, 100px)
+  -moz-transform: translate(100px, 100px)
+  -webkit-transform: translate(100px, 100px)
+  .probe_css_image
+    -webkit-filter: drop-shadow(0 1px 20px rgba(0,255,0,1.0))
+    -moz-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+    -ms-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+    -o-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+    filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
 
 @-webkit-keyframes orbit
   from

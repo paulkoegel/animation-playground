@@ -31,7 +31,6 @@ lastLoop = null
 App.DEG2RAD = Math.PI / 180.0 # factor required to convert radians to degrees
 
 window.onload = (event) ->
-  daAngle = 0
   App.probe = Vector.create [100.0, 100.0]
   # App.rotationMatrix =
   #   Matrix.create [
@@ -50,20 +49,117 @@ window.onload = (event) ->
   App.rotationMatrix =
     Matrix.create [
                     [Math.cos(App.DEG2RAD), -Math.sin(App.DEG2RAD)],
-                    [Math.sin(App.DEG2RAD), Math.cos(App.DEG2RAD)]
+                    [Math.sin(App.DEG2RAD),  Math.cos(App.DEG2RAD)]
                   ]
-  console.log App.rotationMatrix
 
-  circulate = (element) ->
-    (drawCircle = ->
-      App.probe = App.rotationMatrix.multiply(App.probe) # we're constantly moving the element by 1 degree
-      element.style.left = "#{Math.round(App.probe.e(1))}px"
-      element.style.bottom = "#{Math.round(App.probe.e(2))}px"
-      daAngle = daAngle + 1
-      requestAnimationFrame(drawCircle)
+  App.rotationMatrixFor = (angle) ->
+    Matrix.create [
+                    [Math.cos(angle * App.DEG2RAD), -Math.sin(angle * App.DEG2RAD)],
+                    [Math.sin(angle * App.DEG2RAD),  Math.cos(angle * App.DEG2RAD)]
+                  ]
+
+  App.transformMatrixDataFor = (element) ->
+    transformString = window.getComputedStyle(element).transform ||
+                      window.getComputedStyle(element).mozTransform ||
+                      window.getComputedStyle(element).webkitTransform
+    # e.g.: "matrix(1.40954, 0.51303, -0.51303, 1.40954, 400, 20)"
+
+
+    # have to do this in 3 steps, do NOT chain these calls - cf. http://css-tricks.com/get-value-of-css-rotation-through-javascript/
+    # console.log '0:', transformString
+    values = transformString.split('(')[1]
+    # console.log '1: ', values
+    if values?
+      values = values.split(')')[0]
+      # console.log '2: ', values
+    if values?
+      values = values.split(',')
+      #console.log 'values:', values
+    _.map values, (value) ->
+      # console.log 'map:', value, parseInt(value)
+      return parseInt(value)
+      # console.log '3: ', values
+      # => something like: ["1", " 0", " 0", " 1", " -100", " -100"]
+
+  App.positionFor = (element) ->
+    matrixData = App.transformMatrixDataFor(element)
+    Vector.create [matrixData[4], matrixData[5]]
+
+  App.transformMatrixFor = (element) ->
+    matrixData = App.transformMatrixDataFor(element)
+    Matrix.create [
+                    [ matrixData[0], matrixData[1] ]
+                    [ matrixData[2], matrixData[3] ]
+                  ]
+
+
+  # circulate = (element) ->
+  #   (drawCircle = ->
+  #     App.probe = App.rotationMatrix.multiply(App.probe) # we're constantly moving the element by 1 degree
+  #     element.style.left = "#{Math.round(App.probe.e(1))}px"
+  #     element.style.bottom = "#{Math.round(App.probe.e(2))}px"
+  #     requestAnimationFrame(drawCircle)
+  #   )()
+
+  # probeElements = document.getElementsByClassName('probe')
+  # if probeElements.length
+  #   for probeElement in probeElements
+  #     circulate(probeElement)
+
+  circulateCSS = (actor) ->
+    (circulateActor = ->
+      # newPosition = App.rotationMatrixFor(angle).multiply(App.probe) # we're constantly moving the element by 1 degree
+      # translateVector = Vector.create([element.style.left, element.style.top]).subtract(newPosition)
+      # # console.log window.getComputedStyle(element).getPropertyCSSValue('-webkit-transform')
+      # # console.log window.getComputedStyle(element).getPropertyCSSValue('-webkit-transform')
+      # #.getPropertyCSSValue('-webkit-transform')
+
+      # # element.style.left = "#{Math.round(App.probe.e(1))}px"
+      # # element.style.bottom = "#{Math.round(App.probe.e(2))}px"
+      # element.style.webkitTransform = "translate(#{translateVector.e(1)}px, #{translateVector.e(2)}px)"
+
+      #currentMatrixData = App.transformMatrixDataFor(actor.element)
+      # console.log currentMatrixData
+      # currentTranslate =
+      #   Matrix.create [
+      #                   [ parseInt(currentMatrixData[0]), parseInt(currentMatrixData[1]) ]
+      #                   [ parseInt(currentMatrixData[2]), parseInt(currentMatrixData[3]) ]
+      #                 ]
+      currentPosition = actor.position # App.transformMatrixFor(actor.element).multiply(App.positionFor(actor.element))
+
+      newPosition = App.rotationMatrixFor(1).multiply(currentPosition)
+      console.log currentPosition.inspect(), newPosition.inspect()
+      string = "translate(#{newPosition.e(1)}px, #{newPosition.e(2)}px)"
+      actor.position = newPosition
+      # console.log string, actor.element.webkitTransform
+      #actor.element.style.transform = string
+      actor.element.style.webkitTransform = string
+   
+      requestAnimationFrame(circulateActor)
     )()
-  probeElement = document.getElementById('probe_css')
-  circulate(probeElement)
+
+  probeCSSElements = document.getElementsByClassName('probe_css')
+  if probeCSSElements.length
+    for probeCSSElement in probeCSSElements
+      probeCSS =
+        element: probeCSSElement
+        position: Vector.create([100.0, 100.0])
+        circulate: ->
+          circulateCSS(@)
+
+      probeCSS.circulate()
+
+
+  # probeCSS =
+  #   element: document.getElementsByClassName('probe_css')
+  #   angle: 0
+  #   circulate: ->
+  #     circulateCSS(@)
+
+
+  #if probeCSSElements.length
+    #for probeCSSElement in probeCSSElements
+      #circulateCSS(probeCSSElement)
 
 
   #fpsCounter = document.getElementById('fps-counter')
