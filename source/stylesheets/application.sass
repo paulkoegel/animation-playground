@@ -1,5 +1,7 @@
 @import 'compass/css3/box-shadow'
 @import 'compass/css3/images'
+@import 'compass/css3/transform'
+@import 'animation'
 
 body
   +background-image(radial-gradient(center center, white, red))
@@ -11,7 +13,7 @@ body
 
 #reference
   position: fixed
-  top: 600%
+  top: 600% // required b/c of translateZ(0)
   left: 50%
   width: 100px
   height: 100px
@@ -121,6 +123,64 @@ body
     -ms-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
     -o-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
     filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+
+.probe_multi
+  width: 204px
+  height: 578px
+  position: absolute
+  // transform: translate(100px, 100px)
+  // -moz-transform: translate(100px, 100px)
+  // -webkit-transform: translate(100px, 100px)
+  +animation(rotate 5s infinite)
+  +apply-origin(0px 0px, false)
+  +animation-timing-function(linear)
+  +animation-delay(0s)
+  // -webkit-filter: drop-shadow(0 1px 20px rgba(0,255,0,1.0))
+  // -moz-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+  // -ms-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+  // -o-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+  // filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+  img
+    margin-top: 100px
+    -webkit-filter: drop-shadow(0 1px 20px rgba(0,255,0,1.0))
+    -moz-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+    -ms-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+    -o-filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+    filter: drop-shadow(0 1px 2px rgba(0,255,0,.5))
+
++keyframes(rotate)
+  from
+    +transform(rotate(0deg))
+  to
+    +transform(rotate(360deg))
+
+.dancer
+  +animation(jumpdown 1s infinite)
+
++keyframes(jumpdown)
+  from
+    +transform(translate(0px, -20px))
+  10%
+    +transform(translate(0px, -12px))
+  20%
+    +transform(translate(0px, -4px))
+  30%
+    +transform(translate(0px, 4px))
+  40%
+    +transform(translate(0px, 12px))
+  50%
+    +transform(translate(0px, 20px))
+  60%
+    +transform(translate(0px, 12px))
+  70%
+    +transform(translate(0px, 4px))
+  80%
+    +transform(translate(0px, -4px))
+  90%
+    +transform(translate(0px, -12px))
+  to
+    +transform(translate(0px, -20px))
+
 
 @-webkit-keyframes orbit
   from
