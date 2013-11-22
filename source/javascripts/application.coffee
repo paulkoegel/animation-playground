@@ -93,18 +93,19 @@ window.onload = (event) ->
                   ]
 
 
-  # circulate = (element) ->
-  #   (drawCircle = ->
-  #     App.probe = App.rotationMatrix.multiply(App.probe) # we're constantly moving the element by 1 degree
-  #     element.style.left = "#{Math.round(App.probe.e(1))}px"
-  #     element.style.bottom = "#{Math.round(App.probe.e(2))}px"
-  #     requestAnimationFrame(drawCircle)
-  #   )()
+  circulate = (element) ->
+    (drawCircle = ->
+      App.probe = App.rotationMatrix.multiply(App.probe) # we're constantly moving the element by 1 degree
+      element.position = App.probe
+      element.style.left = "#{Math.round(App.probe.e(1))}px"
+      element.style.top = "#{Math.round(App.probe.e(2))}px"
+      requestAnimationFrame(drawCircle)
+    )()
 
-  # probeElements = document.getElementsByClassName('probe')
-  # if probeElements.length
-  #   for probeElement in probeElements
-  #     circulate(probeElement)
+  probeElements = document.getElementsByClassName('probe')
+  if probeElements.length
+    for probeElement in probeElements
+      circulate(probeElement)
 
   circulateCSS = (actor) ->
     (circulateActor = ->
